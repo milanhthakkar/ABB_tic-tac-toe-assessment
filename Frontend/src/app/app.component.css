@@ -1,0 +1,18 @@
+.app-container { font-family: sans-serif; max-width: 800px; margin: 0 auto; text-align: center; padding: 20px; }
+.control-panel button, .action-bar button { padding: 10px 15px; margin: 5px; cursor: pointer; border: 1px solid #ccc; background: #fff; border-radius: 4px; font-weight: bold; }
+.control-panel button.active { background: #007bff; color: white; border-color: #0056b3; }
+.dashboard { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 15px 0; }
+.score { font-size: 1.2rem; font-weight: bold; }
+.status-banner { margin: 15px; font-size: 1.3rem; height: 30px; }
+.win-msg { color: green; font-weight: bold; }
+.draw-msg { color: orange; font-weight: bold; }
+.game-layout { display: flex; justify-content: center; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
+.board-grid { display: grid; grid-template-columns: repeat(3, 100px); grid-template-rows: repeat(3, 100px); gap: 5px; }
+.cell { display: flex; justify-content: center; align-items: center; border: 2px solid #333; font-size: 2.5rem; font-weight: bold; cursor: pointer; background: #fafafa; transition: background 0.2s; user-select: none; }
+.cell:hover { background: #eee; }
+.cell.winning { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+.history-panel { min-width: 250px; max-height: 310px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #fdfdfd; }
+.history-panel table { width: 100%; border-collapse: collapse; }
+.history-panel th, .history-panel td { padding: 6px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+.btn-danger { background: #dc3545 !important; color: white !important; border-color: #bd2130 !important; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }

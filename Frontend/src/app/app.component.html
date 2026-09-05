@@ -1,0 +1,52 @@
+<div class="app-container">
+  <h1>Interactive Tic-Tac-Toe</h1>
+
+  <div class="control-panel">
+    <label>Game Mode: </label>
+    <button [class.active]="selectedMode === 0" (click)="startNewSession(0)">Two Player</button>
+    <button [class.active]="selectedMode === 1" (click)="startNewSession(1)">Vs Computer</button>
+  </div>
+
+  <div class="dashboard" *ngIf="scoreboard">
+    <div class="score">Score: X ({{scoreboard.xWins}}) — O ({{scoreboard.oWins}}) — Draws ({{scoreboard.draws}})</div>
+    <button class="btn-danger" (click)="resetScoreboard()">Reset Scoreboard</button>
+  </div>
+
+  <div class="status-banner">
+    <span *ngIf="game?.status === 0">Current Turn: <strong>{{game.currentPlayer}}</strong></span>
+    <span *ngIf="game?.status === 1" class="win-msg">Match Completed! Winner: {{game.winner}}</span>
+    <span *ngIf="game?.status === 2" class="draw-msg">Match Ended in a Draw!</span>
+  </div>
+
+  <div class="game-layout">
+    <div class="board-grid">
+      <div *ngFor="let cell of game?.board; let i = index" 
+           class="cell" 
+           [class.winning]="isWinningCell(i)"
+           (click)="cellClicked(i)">
+        {{cell}}
+      </div>
+    </div>
+
+    <div class="history-panel">
+      <h3>Move Log</h3>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Player</th><th>Coordinate</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let move of game?.moveHistory">
+            <td>{{move.moveNumber}}</td>
+            <td><strong>{{move.player}}</strong></td>
+            <td>Row {{move.row}}, Col {{move.column}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="action-bar">
+    <button (click)="resetGame()">Reset Game</button>
+    <button [disabled]="game?.moveHistory?.length === 0 || game?.status !== 0" (click)="undo()">Undo Last Move</button>
+  </div>
+</div>

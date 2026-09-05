@@ -65,6 +65,65 @@ All requests interact with the stateless engine via the following contract surfa
 
 ---
 
+### 6.1 API Payload Data Contracts
+
+To assist with integration auditing, the exact JSON payload schemas for data exchange are documented below.
+
+#### A. Game State Object (Standard Server Response)
+Returned by `POST /api/games`, `GET /api/games/{id}`, `POST /api/games/{id}/moves`, `POST /api/games/{id}/undo`, and `POST /api/games/{id}/reset`.
+
+```json
+{
+  "gameId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "board": ["X", "", "", "", "O", "", "", "", ""],
+  "currentPlayer": "X",
+  "mode": 0, 
+  "status": 0,
+  "winner": "",
+  "winningCells": [],
+  "moveHistory": [
+    {
+      "moveNumber": 1,
+      "player": "X",
+      "row": 1,
+      "column": 1
+    },
+    {
+      "moveNumber": 2,
+      "player": "O",
+      "row": 2,
+      "column": 2
+    }
+  ]
+}
+```
+*Note on Enums:* 
+* `mode`: `0` = TwoPlayer, `1` = Computer
+* `status`: `0` = InProgress, `1` = Won, `2` = Draw
+
+#### B. Move Request Object (Client-to-Server Payload)
+Required body payload for `POST /api/games/{id}/moves`.
+
+```json
+{
+  "player": "X",
+  "index": 0
+}
+```
+*Note on Indices:* The `index` property maps sequentially from `0` (top-left) to `8` (bottom-right) across the grid.
+
+#### C. Scoreboard Object (Data Response)
+Returned by `GET /api/scoreboard` and `POST /api/scoreboard/reset`.
+
+```json
+{
+  "xWins": 3,
+  "oWins": 1,
+  "draws": 2
+}
+```
+
+
 ## 7. How to Run Tests
 Core matrix workflows and validation limits are verified via automated xUnit specs.
 1. Navigate to the root `Backend` directory containing your solution file:
